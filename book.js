@@ -79,11 +79,11 @@ const subscribe = () => {
     render();
   });
   socket.subscribe(product.get_ladders_buy_channel()).bind("updated", data => {
-    book.setBids(data);
+    book.updateBids(data);
     render();
   });
   socket.subscribe(product.get_ladders_sell_channel()).bind("updated", data => {
-    book.setAsks(data);
+    book.updateAsks(data);
     render();
   });
 };

@@ -23,16 +23,50 @@ class OrderBook {
 
   setBids(data) {
     this.bids.clear();
+    this._mergeBids(data);
+    return this;
+  }
+
+  updateBids(data) {
+    if (!data || !data.length) return this.setBids([]);
+
+    const max = parseFloat(data[0][0]);
+    const min = parseFloat(data[data.length - 1][0]);
+    Array.from(this.bids.keys())
+      .filter(key => (min <= key && key <= max))
+      .forEach(key => this.bids.delete(key));
+
+    this._mergeBids(data);
+    return this;
+  }
+
+  _mergeBids(data=[]) {
     data.forEach(row => this.bids.set(parseFloat(row[0]), parseFloat(row[1])));
     this.bid_volume = Array.from(this.bids.values()).reduce((x, y) => x + y);
-    return this;
   }
 
   setAsks(data) {
     this.asks.clear();
+    this._mergeAsks(data);
+    return this;
+  }
+
+  updateAsks(data) {
+    if (!data || !data.length) return this.setAsks([]);
+
+    const min = data[0][0];
+    const max = data[data.length - 1][0];
+    Array.from(this.asks.keys())
+      .filter(key => (min <= key && key <= max))
+      .forEach(key => this.asks.delete(key));
+
+    this._mergeAsks(data);
+    return this;
+  }
+
+  _mergeAsks(data) {
     data.forEach(row => this.asks.set(parseFloat(row[0]), parseFloat(row[1])));
     this.ask_volume = Array.from(this.asks.values()).reduce((x, y) => x + y);
-    return this;
   }
 
   _grouping(data, factor, func) {
@@ -115,7 +149,7 @@ class ExecutionBuffer {
     let sell_volume = this.data
       .filter(row => row.side == 'SELL')
       .reduce((prev, curr) => prev + curr.size, 0.0);
-    let ratio = 1.0 * buy_volume / sell_volume;
+    let ratio = sell_volume === 0.0 ? 1.0 : buy_volume / sell_volume;
     return {
       buy_volume: buy_volume,
       sell_volume: sell_volume,
