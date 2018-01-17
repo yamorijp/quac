@@ -78,6 +78,8 @@ const subscribe = () => {
     ticker.update(data);
     render();
   });
+
+  // update 20 price levels
   socket.subscribe(product.get_ladders_buy_channel()).bind("updated", data => {
     book.updateBids(data);
     render();
@@ -86,6 +88,17 @@ const subscribe = () => {
     book.updateAsks(data);
     render();
   });
+};
+
+const poll_all_price_levels = () => {
+  // update all price levels
+  pub.call("GET", "/products/" + product.id + "/price_levels", {full: 1})
+    .then(res => {
+      book.setBids(res.buy_price_levels);
+      book.setAsks(res.ask_price_levels);
+      render();
+      setTimeout(price_levels_full, 15000);
+    });
 };
 
 
@@ -101,14 +114,11 @@ const main = (program) => {
   product = products.get_product(program.product);
   book.setRowCount(program.row).setGroupingFactor(program.group);
 
-  Promise.all([
-    pub.call("GET", "/products/" + product.id),
-    pub.call("GET", "/products/" + product.id + "/price_levels", {full: 1})])
-    .then(responses => {
-      ticker.update(responses[0]);
-      book.setBids(responses[1].buy_price_levels);
-      book.setAsks(responses[1].sell_price_levels);
+  pub.call("GET", "/products/" + product.id)
+    .then(res => {
+      ticker.update(res);
       render();
+      poll_all_price_levels();
       subscribe();
     });
 

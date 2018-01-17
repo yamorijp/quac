@@ -30,10 +30,9 @@ class OrderBook {
   updateBids(data) {
     if (!data || !data.length) return this.setBids([]);
 
-    const max = parseFloat(data[0][0]);
     const min = parseFloat(data[data.length - 1][0]);
     Array.from(this.bids.keys())
-      .filter(key => (min <= key && key <= max))
+      .filter(key => key >= min)
       .forEach(key => this.bids.delete(key));
 
     this._mergeBids(data);
@@ -54,10 +53,9 @@ class OrderBook {
   updateAsks(data) {
     if (!data || !data.length) return this.setAsks([]);
 
-    const min = data[0][0];
     const max = data[data.length - 1][0];
     Array.from(this.asks.keys())
-      .filter(key => (min <= key && key <= max))
+      .filter(key => key <= max )
       .forEach(key => this.asks.delete(key));
 
     this._mergeAsks(data);
