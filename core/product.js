@@ -39,7 +39,34 @@ const PAIRS = {
   QTUMEUR: [49, "CASH", 2, 8],
   QASHJPY: [50, "CASH", 5, 8],
   QASHETH: [51, "CASH", 5, 8],
-  QASHBTC: [52, "CASH", 8, 8]
+  QASHBTC: [52, "CASH", 8, 8],
+
+  // 2018.02.06
+  NEOUSD:  [53, 'CASH', 2, 8],
+  NEOJPY:  [54, 'CASH', 2, 8],
+  NEOSGD:  [55, 'CASH', 2, 8],
+  NEOEUR:  [56, 'CASH', 2, 8],
+  QASHUSD: [57, 'CASH', 2, 8],
+  QASHEUR: [58, 'CASH', 2, 8],
+  QASHSGD: [59, 'CASH', 2, 8],
+  QASHAUD: [60, 'CASH', 2, 8],
+  QASHIDR: [61, 'CASH', 2, 8],
+  QASHHKD: [62, 'CASH', 2, 8],
+  QASHPHP: [63, 'CASH', 2, 8],
+  QASHCNY: [64, 'CASH', 2, 8],
+  QASHINR: [65, 'CASH', 2, 8],
+  UBTCUSD: [71, 'CASH', 2, 8],
+  UBTCJPY: [72, 'CASH', 2, 8],
+  UBTCSGD: [73, 'CASH', 2, 8],
+  UBTCBTC: [74, 'CASH', 2, 8],
+  UBTCETH: [75, 'CASH', 2, 8],
+  UBTCQASH:[76, 'CASH', 2, 8],
+  XRPJPY:  [83, 'CASH', 2, 8],
+  XRPUSD:  [84, 'CASH', 2, 8],
+  XRPEUR:  [85, 'CASH', 2, 8],
+  XRPSGD:  [86, 'CASH', 2, 8],
+  XRPIDR:  [87, 'CASH', 2, 8],
+  XRPQASH: [88, 'CASH', 2, 8]
 };
 
 class Product {
