@@ -4,7 +4,7 @@
 
 
 QUAC (Quoine API Console) は 仮想通貨取引所 [QUOINEX](https://ja.quoinex.com) が提供する
-[Quoine Exchange API](https://bitflyer.jp/docs) を使用した非公式のCLIツールパッケージです。
+[Quoine Exchange API](https://developers.quoine.com/) を使用した非公式のCLIツールパッケージです。
 
 Quoine Exchange APIクライアントを統合したjavascriptの対話型コンソールプログラム、
 リアルタイム更新の板表示プログラム、約定履歴表示プログラムとティッカー表示プログラムを含みます。
