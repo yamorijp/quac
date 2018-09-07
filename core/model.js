@@ -193,7 +193,7 @@ class Ticker {
     let old = this.price;
     this.price = parseFloat(data.last_traded_price);
     this.volume = parseFloat(data.volume_24h);
-    this.change = 1.0 - (this.price / parseFloat(data.last_price_24h));
+    this.change = (1.0 - (this.price / parseFloat(data.last_price_24h))) * -1;
     this.price_old = old || this.price;
     return this;
   }
