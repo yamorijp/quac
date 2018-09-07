@@ -1,8 +1,9 @@
 {
-  "name": "blac",
-  "version": "0.2.0",
-  "description": "QUOINE Exchange API Console",
+  "name": "quac",
+  "version": "0.3.0",
+  "description": "LIQUID (QUOINE) Exchange API Console",
   "keywords": [
+    "liquid",
     "quoine",
     "quoinex",
     "api",

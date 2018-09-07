@@ -134,7 +134,7 @@ process.on("uncaughtException", (err) => {
 const program = require('commander');
 program
   .version(require("./package.json").version)
-  .description("Display QUOINEX's order book")
+  .description("Display LIQUID's order book")
   .option("-p, --product <code>", "Currency pair code (default: BTCJPY)", s => s.toUpperCase(), "BTCJPY")
   .option("-r, --row <n>", "Number of display rows (default: 20)", v => parseInt(v), 20)
   .option("-g, --group <n>", "Order grouping unit (default: 0.0)", v => parseFloat(v), 0.0)

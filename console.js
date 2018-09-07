@@ -22,7 +22,7 @@ const banner = `${term.yellow}${term.bold}
       | |
       |_|
 ${term.reset}${term.yellow}
-  quoine - api - console
+  liquid (quoine) - api - console
 ${term.reset}
 
   コンテキスト変数:
@@ -93,7 +93,7 @@ const main = (program) => {
 const program = require('commander');
 program
   .version(require("./package.json").version)
-  .description("quoine - api - console")
+  .description("liquid (quoine) - api - console")
   .option("-n, --no-banner", "Don't show ugly startup banner", false)
   .on("--help", () => {
     console.log("");

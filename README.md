@@ -1,12 +1,12 @@
 <p align="center">
-<img alt="BLAC" src="https://raw.githubusercontent.com/yamorijp/quac/master/capture.png" width="600"/>
+<img alt="QUAC" src="https://raw.githubusercontent.com/yamorijp/quac/master/capture.png" width="600"/>
 </p>
 
 
-QUAC (Quoine API Console) は 仮想通貨取引所 [QUOINEX](https://ja.quoinex.com) が提供する
-[Quoine Exchange API](https://bitflyer.jp/docs) を使用した非公式のCLIツールパッケージです。
+QUAC (Liquid/Quoine API Console) は 仮想通貨取引所 [Liquid (Quoine)](https://www.liquid.com/ja/) が提供する
+[Quoine Exchange API](https://developers.quoine.com/v2) を使用した非公式のCLIツールパッケージです。
 
-Quoine Exchange APIクライアントを統合したjavascriptの対話型コンソールプログラム、
+Liquid/Quoine Exchange APIクライアントを統合したjavascriptの対話型コンソールプログラム、
 リアルタイム更新の板表示プログラム、約定履歴表示プログラムとティッカー表示プログラムを含みます。
 
 当プログラムは"experimental"です。  
@@ -43,10 +43,10 @@ nodeコマンドでスクリプトを実行します。
 ## 対話型コンソール (console.js)
 
 Quoine Exchange APIクライアントを統合したREPLコンソールプログラムです。  
-対話型シェルでjavascriptを使用した注文発注や取消等、Quoine Exchange APIの呼び出しが行えます。
+対話型シェルでjavascriptを使用した注文発注や取消等、Liquid/Quoine Exchange APIの呼び出しが行えます。
 
 残高の確認やオーダー発行などAuthenticated APIに属する機能の呼び出しにはAPI Token IDとAPI secretが必要になります。
-[QUOINEX](https://trade.quoinex.com)にログイン後、設定の[APIアクセス](https://accounts.quoinex.com/settings/api)からAPIトークンを作成してください。
+[LIQUID/QUOINEX](https://app.liquid.com)にログイン後、設定の[APIトークン](https://app.liquid.com/settings/api-tokens)からAPIトークンを作成してください。
 
 API Token IDとAPI secretは`.qc_set_key`コマンドで設定します。設定した認証情報はプログラム終了時まで有効です。
 
@@ -55,7 +55,7 @@ API Token IDとAPI secretは`.qc_set_key`コマンドで設定します。設定
 `.qc_store_key`コマンドで書き出しを行っておくと起動時に自動で読み込みます。（※平文で保存されます。セキュリティに注意）
 
 
-APIの詳細は、[Quoine Exchange API Reference](https://developers.quoine.com)を参照してください。
+APIの詳細は、[Quoine Exchange API Reference](https://developers.quoine.com/v2)を参照してください。
 
 
       オプション:
@@ -114,11 +114,10 @@ APIの詳細は、[Quoine Exchange API Reference](https://developers.quoine.com)
         $ node ticker.js -p "BTCUSD,ETHBTC"
 
 
-
 ## ライセンス
 
 MIT
 
 
-bitcoin: `1BpLZm4JEFiDqAnaexuYMhGJZKdRQJKixP`  
-monacoin: `MEaJSzymtvpB7AtrryVzn9LeZYhCrustpJ`
+BTC: `1BpLZm4JEFiDqAnaexuYMhGJZKdRQJKixP`  
+ETH: `0x51349760d4a5287dbfa3961ca2e0006936bc9d88`

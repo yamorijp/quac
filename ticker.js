@@ -25,7 +25,7 @@ const _render = () => {
   out.write(term.nl);
 
   out.write("  Exchange:".padEnd(20));
-  out.write("Quoine Exchange".padStart(26));
+  out.write("Liquid Exchange".padStart(26));
   out.write(term.nl);
 
   out.write("  Last Update:".padEnd(20));
@@ -93,7 +93,7 @@ process.on("uncaughtException", (err) => {
 const program = require('commander');
 program
   .version(require("./package.json").version)
-  .description("Display QUOINEX's ticker")
+  .description("Display LIQUID's ticker")
   .option("-p, --product <code>",
     "Currency pair codes, comma separated (default: BTCJPY,ETHJPY,BCHJPY,ETHBTC,BTCUSD)",
     s => s.toUpperCase(),
