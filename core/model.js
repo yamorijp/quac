@@ -53,7 +53,7 @@ class OrderBook {
   updateAsks(data) {
     if (!data || !data.length) return this.setAsks([]);
 
-    const max = data[data.length - 1][0];
+    const max = parseFloat(data[data.length - 1][0]);
     Array.from(this.asks.keys())
       .filter(key => key <= max )
       .forEach(key => this.asks.delete(key));

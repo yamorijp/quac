@@ -12,7 +12,7 @@ const term = require('./core/terminal');
 const model = require('./core/model');
 const products = require('./core/product');
 
-const render_wait = 200;
+const render_wait = 300;
 
 let product = {};
 let health = new model.Health();
@@ -97,12 +97,14 @@ const poll_all_price_levels = () => {
       book.setBids(res.buy_price_levels);
       book.setAsks(res.ask_price_levels);
       render();
-      setTimeout(price_levels_full, 15000);
+      setTimeout(poll_all_price_levels, 20000);
     });
 };
 
 
 const main = (program) => {
+  product = products.get_product(program.product);
+  book.setRowCount(program.row).setGroupingFactor(program.group);
 
   const check_health = () => {
     pub.call("GET", "/products/" + product.id)
@@ -110,9 +112,8 @@ const main = (program) => {
       .catch(() => health.setHealth(0))
       .then(() => render());
   };
-
-  product = products.get_product(program.product);
-  book.setRowCount(program.row).setGroupingFactor(program.group);
+  check_health();
+  setInterval(check_health, 60000);
 
   pub.call("GET", "/products/" + product.id)
     .then(res => {
@@ -120,10 +121,7 @@ const main = (program) => {
       render();
       poll_all_price_levels();
       subscribe();
-    });
-
-  check_health();
-  setInterval(check_health, 60000);
+    })
 };
 
 process.on("uncaughtException", (err) => {

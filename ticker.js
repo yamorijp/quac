@@ -35,9 +35,9 @@ const _render = () => {
   out.write(term.nl);
 
   out.write("  " + "Code".padEnd(8));
-  out.write(" " + "Price".padStart(8));
+  out.write(" " + "Price".padStart(10));
   out.write(" " + "24H".padStart(8));
-  out.write(" " + "Volume".padStart(17));
+  out.write(" " + "Volume".padStart(15));
   out.write(term.nl);
 
   out.write(term.separator + term.nl);
@@ -47,11 +47,11 @@ const _render = () => {
     out.write("  " + p.pair.toUpperCase().padEnd(8));
     out.write(" " + term.colorful(
         term.updown_color(data.price, data.price_old),
-        p.format_price(data.price).padStart(8)));
+        p.format_price(data.price).padStart(10)));
     out.write(" " + term.colorful(
         term.updown_color(data.change, 0.0),
         p.format_change_p(data.change).padStart(8)));
-    out.write(" " + p.format_volume(data.volume).padStart(17));
+    out.write(" " + p.format_volume(data.volume).padStart(15));
     out.write(term.nl);
   });
 
