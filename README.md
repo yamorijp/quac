@@ -3,118 +3,113 @@
 </p>
 
 
-QUAC (Liquid/Quoine API Console) は 仮想通貨取引所 [Liquid (Quoine)](https://www.liquid.com/ja/) が提供する
-[Quoine Exchange API](https://developers.quoine.com/v2) を使用した非公式のCLIツールパッケージです。
 
-Liquid/Quoine Exchange APIクライアントを統合したjavascriptの対話型コンソールプログラム、
-リアルタイム更新の板表示プログラム、約定履歴表示プログラムとティッカー表示プログラムを含みます。
+QUAC (Liquid / Quoine API Console) is provided by the virtual currency exchange [Liquid (Quoine)] (https://www.liquid.com/en/)
+An unofficial CLI tool package using the Quoine Exchange API (https://developers.quoine.com/v2).
 
-当プログラムは"experimental"です。  
-十分なテストが行われていません。オーダー発行を行う場合は最初に少額でお試しください。
+Javascript interactive console program integrating Liquid / Quoine Exchange API client,
+Includes real time update board display program, contract history display program and ticker display program.
 
+This program is "experimental".
+Not enough testing has been done. In order to issue order, please try first with a small amount.
 
-姉妹品としてbitFlyer Lightning APIを使用した [BLAC](https://github.com/yamorijp/blac)もあります。
+There is also [BLAC] (https://github.com/yamorijp/blac) which used the bitFlyer Lightning API as a sister item.
 
+## Getting Started
 
+This program is a js script which runs in Node.js.
+You need [Node.js] (https://nodejs.org) to run. Please install version 6.10.0 or higher.
 
-## 導入手順
-
-当プログラムはNode.jsで動作するjsスクリプトです。  
-実行には[Node.js](https://nodejs.org) が必要です。バージョン6.10.0以上を導入してください。
-
-また、サードパーティ製のnpmモジュールに依存しています。
-[npm](https://www.npmjs.com/) か [yarn](https://yarnpkg.com/) を使用してインストールを行ってください。
+It also depends on third party npm modules.
+Please install using [npm] (https://www.npmjs.com/) or [yarn] (https://yarnpkg.com/).
 
     $ npm install
     
 
+## Running the program
 
-## プログラムの実行方法
-
-nodeコマンドでスクリプトを実行します。
+Run the script with the node command.
 
     $ node console.js
 
-いくつかコマンドラインオプションがあります。`-h`オプションで確認してください。
+There are several command line options. Check with `- h` option for help.
 
     $ node console.js -h
     
 
-## 対話型コンソール (console.js)
+## Interactive console (console.js)
 
-Quoine Exchange APIクライアントを統合したREPLコンソールプログラムです。  
-対話型シェルでjavascriptを使用した注文発注や取消等、Liquid/Quoine Exchange APIの呼び出しが行えます。
+A REPL console program that integrates the Quoine Exchange API client.
+You can make orders and cancellations using javascript with interactive shell, and call Liquid / Quoine Exchange API.
 
-残高の確認やオーダー発行などAuthenticated APIに属する機能の呼び出しにはAPI Token IDとAPI secretが必要になります。
-[LIQUID/QUOINEX](https://app.liquid.com)にログイン後、設定の[APIトークン](https://app.liquid.com/settings/api-tokens)からAPIトークンを作成してください。
+API Token ID and API secret are required for calling functions belonging to the Authenticated API such as confirming the balance and issuing an order.
 
-API Token IDとAPI secretは`.qc_set_key`コマンドで設定します。設定した認証情報はプログラム終了時まで有効です。
+After logging into [LIQUID / QUOINEX] (https://app.liquid.com), create an API token from the configuration [API token] (https://app.liquid.com/settings/api-tokens). 
+
+
+The API Token ID and API secret are set with `.qc_set_key` command. The set authentication information is valid until the program is terminated.
 
     > .qc_set_key YOUR_API_TOKEN_ID YOUR_API_SECRET
     
-`.qc_store_key`コマンドで書き出しを行っておくと起動時に自動で読み込みます。（※平文で保存されます。セキュリティに注意）
+If you export with `.qc_store_key` command, it will be loaded automatically at startup. (It will be saved in clear text * Attention to security)
+
+For details of the API, refer to [Quoine Exchange API Reference] (https://developers.quoine.com/v2).
 
 
-APIの詳細は、[Quoine Exchange API Reference](https://developers.quoine.com/v2)を参照してください。
-
-
-      オプション:
+     
+      option:
     
-        -n, --no-banner  スタートアップバナーを表示しない
+        -n, --no-banner  Do not display startup banner
     
-      例:
+      Example: 
     
         $ node console.js -n
 
 
+## Board display program (book.js)
 
-## 板表示プログラム (book.js)
-
-リアルタイム更新の板表示プログラムです。  
-値段範囲で注文をまとめるグルーピング表示に対応しています。(`-g`オプション）
+This is a board display program for real time update.
+It corresponds to the grouping display which collects orders in the price range. (`-g` option)
 
 
-      オプション:
-        
-        -p, --product <code>  通貨ペアコード (デフォルト: BTCJPY)
-        -r, --row <n>         買いと売り注文の表示行数 (デフォルト: 20)
-        -g, --group <n>       指定範囲の注文をまとめて表示 (デフォルト: 無効)
-        
-      例:
-        
-        $ node book.js -p BTC_JPY -r 32 -g 100
+	    option:       
       
+        -p, --product <code> Currency pair code (default: BTCJPY)  
+        -r, --row <n> Number of lines to display for buy and sell orders (default: 20)  
+        -g, --group <n> Display orders in a specified range (default: disabled)          
+        
+      Example:  
+      
+        $ node book.js - p BTC_JPY - r 32 - g 100
+      
+## Contract history display program (executions.js)
 
-## 約定履歴表示プログラム (executions.js)
+It is a promissory history display program of real time update.
 
-リアルタイム更新の約定履歴表示プログラムです。
-
-
-      オプション:
-    
-        -p, --product <code>  通貨ペアコード (デフォルト: BTCJPY)
-        -r, --row <n>         履歴の表示行数 (デフォルト: 40)
-    
-      例:
-    
-        $ node executions.js -p ETH_BTC -r 20
-
-
-# ティッカー表示プログラム (ticker.js)
-
-リアルタイム更新のティッカー表示プログラムです。
-
-
-      オプション:
-    
-        -p, --product <code>  カンマ区切りの通貨ペアコード (デフォルト: "BTCJPY,ETHJPY,BCHJPY,ETHBTC,BTCUSD")
-    
-      例:
-    
-        $ node ticker.js -p "BTCUSD,ETHBTC"
+      option:  
+          
+        -p, --product <code> Currency pair code (default: BTCJPY)  
+        -r, --row <n> Number of display lines of history (default: 40)
+    
+      Example:
+    
+         $ node executions.js - p ETH_BTC - r 20
 
 
-## ライセンス
+# Ticker display program (ticker.js)
+
+Real time update ticker display program.
+
+      option:
+          
+        -p, --product <code> Comma-separated currency pair code (default: "BTCJPY, ETHJPY, BCHJPY, ETHBTC, BTCUSD")  
+           
+      Example:
+          
+        $ node ticker.js -p "BTCUSD, ETHBTC"  
+
+
+## license
 
 MIT
 
