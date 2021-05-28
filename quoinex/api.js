@@ -6,6 +6,7 @@
 
 const qs = require('qs');
 const Pusher = require('pusher-js');
+const tap = require('liquid-tap');
 const jwt = require('jsonwebtoken');
 const request = require('then-request');
 const requestSync = require('sync-request');
@@ -138,6 +139,8 @@ class PrivateAPI extends PublicAPI {
 
 
 /**
+ * @deprecated
+ * @obsolete
  * WebSocket API: Pusherクライアントラッパー
  *
  * https://pusher.com/docs/client_api_guide
@@ -154,7 +157,26 @@ class RealtimeAPI extends Pusher {
   }
 }
 
+
+/**
+ * Realtime API (Liquid Tap) クライアントラッパー
+ * 
+ * new RealtimeAPI()
+ *     .subscribe("product_cash_btcjpy_5")
+ *     .bind("updated", console.log);
+ */
+class RealtimeAPI2 {
+
+  constructor(options) {
+    this.client = new tap.TapClient(options);
+  }
+
+  subscribe(name) {
+    return this.client.subscribe(name);
+  }
+}
+
 module.exports.PublicAPI = PublicAPI;
 module.exports.PrivateAPI = PrivateAPI;
-module.exports.RealtimeAPI = RealtimeAPI;
+module.exports.RealtimeAPI = RealtimeAPI2;
 module.exports.set_debug = set_debug;

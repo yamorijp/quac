@@ -36,7 +36,7 @@ const PAIRS = {
   "QTUMUSD": [47, "CASH", 3, 8],
   "QTUMJPY": [48, "CASH", 2, 8],
   "QTUMEUR": [49, "CASH", 2, 8],
-  "QASHJPY": [50, "CASH", 2, 8],
+  "QASHJPY": [50, "CASH", 3, 8],
   "QASHETH": [51, "CASH", 8, 8],
   "QASHBTC": [52, "CASH", 8, 8],
   "NEOUSD": [53, "CASH", 3, 8],
@@ -58,7 +58,7 @@ const PAIRS = {
   "UBTCBTC": [74, "CASH", 8, 8],
   "UBTCETH": [75, "CASH", 8, 8],
   "UBTCQASH": [76, "CASH", 8, 8],
-  "XRPJPY": [83, "CASH", 2, 8],
+  "XRPJPY": [83, "CASH", 3, 8],
   "XRPUSD": [84, "CASH", 3, 8],
   "XRPEUR": [85, "CASH", 2, 8],
   "XRPSGD": [86, "CASH", 2, 8],
@@ -380,7 +380,7 @@ const find_pair = (code) => {
     .callSync("GET", "/products")
     .find(row => row.currency_pair_code == code);
   if (product) {
-    return [product.id, code, 2, 8];
+    return [product.id, code, 4, 8];
   } else {
     return null;
   }

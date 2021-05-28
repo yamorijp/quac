@@ -23,6 +23,8 @@ let book = new model.OrderBook();
 const _render = () => {
   let out = process.stdout;
 
+  out.cork();
+
   out.write(term.clear);
   out.write(term.nl);
 
@@ -68,6 +70,8 @@ const _render = () => {
 
   out.write(`  Service) ${health.health}`);
   out.write(term.nl);
+
+  process.nextTick(() => out.uncork());
 };
 const render = throttle(_render, render_wait);
 
@@ -75,17 +79,17 @@ const render = throttle(_render, render_wait);
 const subscribe = () => {
   const socket = new api.RealtimeAPI();
   socket.subscribe(product.get_ticker_channel()).bind("updated", data => {
-    ticker.update(data);
+    ticker.update(JSON.parse(data));
     render();
   });
 
   // update 20 price levels
   socket.subscribe(product.get_ladders_buy_channel()).bind("updated", data => {
-    book.updateBids(data);
+    book.updateBids(JSON.parse(data));
     render();
   });
   socket.subscribe(product.get_ladders_sell_channel()).bind("updated", data => {
-    book.updateAsks(data);
+    book.updateAsks(JSON.parse(data));
     render();
   });
 };

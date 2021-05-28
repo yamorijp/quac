@@ -182,13 +182,18 @@ module.exports.commands.markets = new Command("qu_markets")
       .filter(p => p.last_traded_price && parseFloat(p.last_traded_price))
       .filter(p => p.currency_pair_code.indexOf(argv[0]) > -1)
       .map(p => {
-      return {
-        code: p.currency_pair_code,
-        price: to_float(p.last_traded_price),
-        change: to_float(p.last_traded_price) - to_float(p.last_price_24h),
-        volume: to_float(p.volume_24h)
-      };
-    });
+        try {
+          return {
+            code: p.currency_pair_code,
+            price: to_float(p.last_traded_price),
+            change: to_float(p.last_traded_price) - to_float(p.last_price_24h),
+            volume: to_float(p.volume_24h)
+          };
+        } catch {
+          return null;
+        }
+      })
+      .filter(p => !!p);
   });
 
 module.exports.commands.price = new Command("qu_price")

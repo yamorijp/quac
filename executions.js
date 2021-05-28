@@ -20,6 +20,8 @@ let buffer = new model.ExecutionBuffer();
 const _render = () => {
   let out = process.stdout;
 
+  out.cork();
+
   out.write(term.clear);
   out.write(term.nl);
 
@@ -48,16 +50,18 @@ const _render = () => {
   for (let i=buffer.data.length-1; i>=0; i--) {
     const row = buffer.data[i];
     out.write("  ");
-    out.write(row.time.toLocaleTimeString().padEnd(14));
+    out.write(row.time.toLocaleTimeString().padEnd(11));
     out.write(term.colorful(
       row.side == 'BUY' ? term.bid_color : term.ask_color,
-      row.side.padEnd(4) + product.format_price(row.price).padStart(10)));
+      row.side.padEnd(4) + product.format_price(row.price).padStart(13)));
     out.write(product.format_volume(row.size).padStart(16));
     out.write(term.nl);
   }
 
   out.write(term.separator + term.nl);
   out.write(term.nl);
+
+  process.nextTick(() => out.uncork());
 };
 let render = throttle(_render, render_wait);
 
@@ -80,7 +84,7 @@ const main = (program) => {
   new api.RealtimeAPI()
     .subscribe(product.get_executions_channel())
     .bind("created", data => {
-      buffer.add(data);
+      buffer.add(JSON.parse(data));
       render();
     });
 };

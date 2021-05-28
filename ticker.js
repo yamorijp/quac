@@ -21,6 +21,8 @@ let tickers = null;
 const _render = () => {
   let out = process.stdout;
 
+  out.cork();
+
   out.write(term.clear);
   out.write(term.nl);
 
@@ -57,6 +59,8 @@ const _render = () => {
 
   out.write(term.separator + term.nl);
   out.write(term.nl);
+
+  process.nextTick(() => out.uncork());
 };
 const render = throttle(_render, render_wait);
 
@@ -77,11 +81,12 @@ const main = (program) => {
     })
     .then(() => {
       const socket = new api.RealtimeAPI();
-      product_map.forEach(v => socket.subscribe(v.get_ticker_channel()));
-      socket.bind("updated", data => {
-        tickers.update(data.id, data);
+      const callback = data => {
+        const data_ = JSON.parse(data);
+        tickers.update(data_.id, data_);
         render();
-      });
+      }
+      product_map.forEach(v => socket.subscribe(v.get_ticker_channel()).bind('updated', callback));
     });
 };
 

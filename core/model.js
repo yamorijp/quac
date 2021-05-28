@@ -208,8 +208,9 @@ class TickerBoard {
   }
 
   update(id, data) {
-    if (this.data.has(id))
-      this.data.get(id).update(data);
+    const id_ = parseInt(id);
+    if (this.data.has(id_))
+      this.data.get(id_).update(data);
   }
 
   get(id) {
